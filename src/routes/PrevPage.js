@@ -1,10 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import PrevInput from "../components/PrevInput";
+import { Button, ButtonGroup, BeatLoader } from "@chakra-ui/react";
+
 function MainPage() {
   return (
     <div className="main">
-      <h2>직업가치관검사</h2>
-      <input />
-      <button>검사시작</button>
+      <PrevInput />
+      <Link to="/test">
+        <Button isDisabled={false} colorScheme="blue">
+          검사시작
+        </Button>
+      </Link>
     </div>
   );
 }
