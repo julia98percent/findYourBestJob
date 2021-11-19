@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PrevInput from "../components/PrevPage/PrevInput";
-import { Button, ButtonGroup, BeatLoader } from "@chakra-ui/react";
+import "bulma/css/bulma.min.css";
 
-function MainPage() {
+function PrevPage() {
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState(undefined);
   return (
-    <div className="main">
-      <PrevInput />
+    <div className="prev">
+      <PrevInput
+        name={name}
+        setName={setName}
+        gender={gender}
+        setGender={setGender}
+      />
       <Link to="/test">
-        <Button isDisabled={false} colorScheme="blue">
+        <button
+          class="button is-black"
+          colorScheme="blue"
+          isDisabled={name && gender ? false : true}
+        >
           검사시작
-        </Button>
+        </button>
       </Link>
     </div>
   );
 }
 
-export default MainPage;
+export default PrevPage;

@@ -1,46 +1,72 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import QuestionBox from "../components/TestPage/QuestionBox";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import "bulma/css/bulma.min.css";
+import ExampleTest from "../components/TestPage/ExampleTest";
+import Test from "../components/TestPage/Test";
+import axios from "axios";
+function TestPage() {
+  const [curPage, setCurPage] = useState(0); // 현재 페이지 번호 및 진행률
 
-function TestPage({ q, curPage, setCurPage }) {
-  const [isMain, setIsMain] = useState(false);
-  const [a, setA] = useState({});
-  const questions = [];
+  const [isExample, setIsExample] = useState(true); // 예시 페이지야?
+  const [answers, setAnswers] = useState({}); //답변한거 저장
+  const handleChange = (e) => {
+    let newAnswers = { ...answers };
+    newAnswers[e.target.name] = e.target.value;
+    setAnswers(newAnswers);
+  };
+  const [questions, setQuestions] = useState([]); //axios로 받아온 질문 저장
+
+  useEffect(() => {
+    const call = async () => {
+      const key = "e75f4f4f23d735668faf09f0ffff8123";
+      const response = await axios.get(
+        `https://www.career.go.kr/inspct/openapi/test/questions?apikey=${key}&q=6`
+      );
+      let arr = [];
+      for (let i = 0; i < Object.keys(response.data.RESULT).length; i++) {
+        let temp = response.data.RESULT[i];
+        arr.push([temp.answer01, temp.answer02, temp.answer03, temp.answer04]);
+      }
+      setQuestions(arr);
+    };
+    call();
+  }, []);
+  const questionList = []; // 5개씩 묶어서 보여줄 list
   for (let i = curPage; i < curPage + 5; i++) {
     if (i == 28) break;
-    questions.push(
-      <QuestionBox a={a} setA={setA} key={i} num={i + 1} question={q[i]} />
+    questionList.push(
+      <QuestionBox
+        answers={answers}
+        setAnswers={setAnswers}
+        key={i}
+        num={i + 1}
+        question={questions[i]}
+      />
     );
   }
+
   return (
     <div className="test">
-      <h2>{isMain == false ? "검사예시" : "검사진행"}</h2>
-      <div>progress bar 자리</div>
-      {isMain == false ? (
-        <div>
-          대충 설명하는 페이지
-          <Button onClick={() => setIsMain(true)}>클릭하세요</Button>
-        </div>
+      {/* <Progress value={curPage * 4} /> */}
+      {isExample ? (
+        <ExampleTest
+          setIsExample={setIsExample}
+          question={[
+            "창의성",
+            "안정성",
+            "스스로 아이디어를 내어 새로운 일을 해볼 수 있는 것입니다.",
+            "한 직장에서 오랫동안 일할 수 있는 것입니다.",
+          ]}
+        />
       ) : (
-        <div>
-          <div>{questions}</div>
-          <Button
-            style={curPage == 0 ? { visibility: "hidden" } : { color: "red" }}
-            onClick={() => setCurPage(curPage - 5)}
-          >
-            이전
-          </Button>
-          {/* 결과보기 버튼 따로 만들어서 컴포넌트 분리 해주기 */}
-          <Button
-            style={curPage == 25 ? { visibility: "hidden" } : { color: "blue" }}
-            onClick={() => setCurPage(curPage + 5)}
-          >
-            다음
-          </Button>
-        </div>
+        <Test
+          curPage={curPage}
+          setCurPage={setCurPage}
+          questionList={questionList}
+          handleChange={handleChange}
+        />
       )}
     </div>
   );
 }
-
 export default TestPage;
