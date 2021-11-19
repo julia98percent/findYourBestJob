@@ -47,7 +47,8 @@ function TestPage() {
 
   return (
     <div className="test">
-      {/* <Progress value={curPage * 4} /> */}
+      <h2>{curPage * 4}</h2>
+      <progress class="progress" value={curPage * 4} max="100"></progress>
       {isExample ? (
         <ExampleTest
           setIsExample={setIsExample}
@@ -60,6 +61,7 @@ function TestPage() {
         />
       ) : (
         <Test
+          answers={answers}
           curPage={curPage}
           setCurPage={setCurPage}
           questionList={questionList}
