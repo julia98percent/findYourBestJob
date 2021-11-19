@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PrevInput from "../components/PrevInput";
+import PrevInput from "../components/PrevPage/PrevInput";
 import { Button, ButtonGroup, BeatLoader } from "@chakra-ui/react";
 
 function MainPage() {

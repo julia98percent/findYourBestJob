@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import PrevResult from "../components/PrevResult";
+import PrevResult from "../components/ResultPage/PrevResult";
 function ResultPage() {
   useEffect(() => {
     const call = async () => {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import QuestionBox from "../components/QuestionBox";
+import QuestionBox from "../components/TestPage/QuestionBox";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
 function TestPage({ q, curPage, setCurPage }) {
