@@ -4,11 +4,11 @@ import "bulma/css/bulma.min.css";
 import ExampleTest from "../components/TestPage/ExampleTest";
 import Test from "../components/TestPage/Test";
 import axios from "axios";
-function TestPage() {
+function TestPage({ answers, setAnswers }) {
   const [curPage, setCurPage] = useState(0); // 현재 페이지 번호 및 진행률
 
   const [isExample, setIsExample] = useState(true); // 예시 페이지야?
-  const [answers, setAnswers] = useState({}); //답변한거 저장
+
   const handleChange = (e) => {
     let newAnswers = { ...answers };
     newAnswers[e.target.name] = e.target.value;

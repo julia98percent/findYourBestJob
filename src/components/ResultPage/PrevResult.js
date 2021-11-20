@@ -1,6 +1,6 @@
 import React from "react";
 
-function PrevResult() {
+function PrevResult({ setIsPrev }) {
   return (
     <div className="result">
       <h2>검사가 완료되었습니다.</h2>
@@ -9,7 +9,7 @@ function PrevResult() {
         생각하는지를 알려주고, 중요 가치를 충족시켜줄 수 있는 직업에 대해 생각해
         볼 기회를 제공합니다.
       </div>
-      <button>결과보기</button>
+      <button onClick={() => setIsPrev(false)}>결과보기</button>
     </div>
   );
 }

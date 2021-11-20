@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import PrevInput from "../components/PrevPage/PrevInput";
 import "bulma/css/bulma.min.css";
 
-function PrevPage() {
-  const [name, setName] = useState("");
-  const [gender, setGender] = useState(undefined);
+function PrevPage({ name, setName, gender, setGender }) {
   return (
     <div className="prev">
       <PrevInput

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import QuestionBox from "./QuestionBox";
-import "bulma/css/bulma.min.css";
+import WatchResultBtn from "./WatchResultBtn";
 
 function Test({ answers, curPage, setCurPage, questionList }) {
   return (
@@ -14,17 +13,21 @@ function Test({ answers, curPage, setCurPage, questionList }) {
         >
           이전
         </button>
-        {/* 결과보기 버튼 따로 만들어서 컴포넌트 분리 해주기 */}
-        <button
-          disabled={
-            Object.keys(answers).length == curPage ||
-            Object.keys(answers).length % 5
-          }
-          style={curPage == 25 ? { visibility: "hidden" } : { color: "blue" }}
-          onClick={() => setCurPage(curPage + 5)}
-        >
-          다음
-        </button>
+        {/* 수정해야 할거같은게...뒤로 가면 radio 선택이 안돼 */}
+        {curPage == 25 ? (
+          <WatchResultBtn />
+        ) : (
+          <button
+            disabled={
+              Object.keys(answers).length == curPage ||
+              Object.keys(answers).length % 5
+            }
+            style={curPage == 25 ? { visibility: "hidden" } : { color: "blue" }}
+            onClick={() => setCurPage(curPage + 5)}
+          >
+            다음
+          </button>
+        )}
       </div>
     </div>
   );

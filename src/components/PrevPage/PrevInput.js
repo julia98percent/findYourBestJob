@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function MainPage({ name, gender, setName, setGender }) {
+function PrevInput({ name, gender, setName, setGender }) {
   return (
     <div>
       <h2 class="title is-2">직업가치관검사</h2>
@@ -16,7 +16,7 @@ function MainPage({ name, gender, setName, setGender }) {
         <input
           type="radio"
           name="gender"
-          value={100323}
+          value="100323"
           onChange={() => setGender(100323)}
         />
         남자
@@ -26,7 +26,7 @@ function MainPage({ name, gender, setName, setGender }) {
         <input
           type="radio"
           name="gender"
-          value={100324}
+          value="100324"
           onChange={() => setGender(100324)}
         />
         여자
@@ -39,4 +39,4 @@ function MainPage({ name, gender, setName, setGender }) {
   );
 }
 
-export default MainPage;
+export default PrevInput;
