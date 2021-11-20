@@ -9,6 +9,8 @@ function PrevResult({ setIsPrev }) {
         생각하는지를 알려주고, 중요 가치를 충족시켜줄 수 있는 직업에 대해 생각해
         볼 기회를 제공합니다.
       </div>
+      <hr />
+      <span>사용자는aa 성향이므로 bb직업에 적합합니다.</span>
       <button onClick={() => setIsPrev(false)}>결과보기</button>
     </div>
   );
