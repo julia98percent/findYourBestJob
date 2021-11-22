@@ -12,6 +12,7 @@ function ExampleTest({ setIsExample, question }) {
       </div>
       <div style={{ backgroundColor: "pink" }}>
         <p>1. 두개 가치 중에 자신에게 더 중요한 가치를 선택하세요.</p>
+        {/* TODO 여기 버튼 고쳐주ㅓ */}
         <button value={"test1"}>{question[0]}</button>
         <button value={"test2"}>{question[1]}</button>
 

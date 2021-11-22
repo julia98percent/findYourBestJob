@@ -58,25 +58,34 @@ function ResultPage({ name, gender, answers }) {
       let cnt = 0;
       for (let i = 0; i < wonScore.length; i++) {
         if (wonScore && i % 2) {
-          temp.push([wonScore[i], koreanValue[cnt]]);
+          temp.push([wonScore[i - 1], koreanValue[cnt], wonScore[i]]);
           cnt++;
         }
       }
+      console.log(temp);
       let forMax = [...temp];
       forMax.sort((a, b) => {
         return b[0] - a[0];
       });
-      // console.log("----");
-      // console.log(forMax);
-      // console.log("원본----");
-      // console.log(temp);
+
       setResultScore(temp);
       setFirstValue(forMax[0]);
       setSecondValue(forMax[1]);
+
+      console.log(firstValue[0], secondValue[0], gender);
+      const response3 = await axios.get(
+        `https://inspct.career.go.kr/inspct/api/psycho/value/jobs?no1=${firstValue[0]}&no2=${secondValue[0]}`
+      );
+      console.log(response3.request.response); // 평균 학력별 직업 정보
+      const response4 = await axios.get(
+        `https://inspct.career.go.kr/inspct/api/psycho/value/majors?no1=${firstValue[0]}&no2=${secondValue[0]}` // 평균 전공별 직업 정보
+      );
+
+      setDate(response2.data.result.endDtm.substring(0, 10));
     };
     call();
   }, []);
-  // console.log(resultUrl);
+  console.log(resultUrl);
   return (
     <div className="result">
       {isPrev ? (
