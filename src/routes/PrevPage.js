@@ -4,6 +4,11 @@ import PrevInput from "../components/PrevPage/PrevInput";
 import "bulma/css/bulma.min.css";
 
 function PrevPage({ name, setName, gender, setGender }) {
+  function checkName(str) {
+    const regExp = /^[a-zA-Zㄱ-힣|s]*$/;
+    return regExp.test(str) ? true : false;
+  }
+
   return (
     <div className="prev">
       <PrevInput
@@ -11,12 +16,13 @@ function PrevPage({ name, setName, gender, setGender }) {
         setName={setName}
         gender={gender}
         setGender={setGender}
+        checkName={checkName}
       />
       <Link to="/test">
         <button
           class="button is-black"
           colorScheme="blue"
-          isDisabled={name && gender ? false : true}
+          disabled={checkName(name) && gender ? false : true}
         >
           검사시작
         </button>
