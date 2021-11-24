@@ -4,7 +4,7 @@ function WatchResultBtn() {
   return (
     <div className="WatchResultBtn">
       <Link to="/result">
-        <button>결과보기</button>
+        <input type="submit" />
       </Link>
     </div>
   );

@@ -11,6 +11,8 @@ function ResultPage({ name, gender, answers }) {
   const [resultScore, setResultScore] = useState([]);
   const [firstValue, setFirstValue] = useState(-1);
   const [secondValue, setSecondValue] = useState(-1);
+  const [bestJobForMajor, setBestJobForMajor] = useState([]);
+  const [bestJobForEdu, setBestJobForEdu] = useState([]);
   const koreanValue = [
     "능력발휘",
     "자율성",
@@ -49,7 +51,7 @@ function ResultPage({ name, gender, answers }) {
       //결과 json 요청 (시간 + 점수)
       const jsonURL =
         "https://www.career.go.kr/inspct/api/psycho/report?seq=" + seq;
-      setResultUrl(jsonURL);
+      // setResultUrl(jsonURL);
 
       const response2 = await axios.get(jsonURL);
       setDate(response2.data.result.endDtm.substring(0, 10));
@@ -62,7 +64,7 @@ function ResultPage({ name, gender, answers }) {
           cnt++;
         }
       }
-      console.log(temp);
+
       let forMax = [...temp];
       forMax.sort((a, b) => {
         return b[0] - a[0];
@@ -72,30 +74,53 @@ function ResultPage({ name, gender, answers }) {
       setFirstValue(forMax[0]);
       setSecondValue(forMax[1]);
 
-      console.log(firstValue[0], secondValue[0], gender);
+      // 평균 학력별 직업 정보
       const response3 = await axios.get(
-        `https://inspct.career.go.kr/inspct/api/psycho/value/jobs?no1=${firstValue[0]}&no2=${secondValue[0]}`
-      );
-      console.log(response3.request.response); // 평균 학력별 직업 정보
-      const response4 = await axios.get(
-        `https://inspct.career.go.kr/inspct/api/psycho/value/majors?no1=${firstValue[0]}&no2=${secondValue[0]}` // 평균 전공별 직업 정보
+        `https://inspct.career.go.kr/inspct/api/psycho/value/jobs?no1=${forMax[0][0]}&no2=${forMax[1][0]}`
       );
 
-      setDate(response2.data.result.endDtm.substring(0, 10));
+      // let jobListByEdu = [[], [], [], [], [], []];
+
+      // response3.data.map((item) => {
+      //   const [jobNum, jobName, jobCategoryNum] = item;
+      //   jobListByEdu[jobCategoryNum].push([jobNum, jobName]);
+      // });
+
+      // let jobListByMajor = [[], [], [], [], [], [], [], []];
+      // 평균 전공별 직업 정보
+      const response4 = await axios.get(
+        `https://inspct.career.go.kr/inspct/api/psycho/value/majors?no1=${forMax[0][0]}&no2=${forMax[1][0]}`
+      );
+      // response4.data.map((item) => {
+      //   const [jobNum, jobName, jobCategoryNum] = item;
+      //   jobListByMajor[jobCategoryNum].push(jobName);
+      // });
+
+      setBestJobForEdu(response3.data);
+      setBestJobForMajor(response4.data);
     };
     call();
   }, []);
-  console.log(resultUrl);
   return (
     <div className="result">
       {isPrev ? (
-        <PrevResult setIsPrev={setIsPrev} />
+        <PrevResult
+          name={name}
+          setIsPrev={setIsPrev}
+          firstValue={firstValue}
+          secondValue={secondValue}
+          bestJobForMajor={bestJobForMajor}
+        />
       ) : (
         <ResultChart
           name={name}
           gender={gender}
           date={date}
           resultScore={resultScore}
+          firstValue={firstValue}
+          secondValue={secondValue}
+          bestJobForEdu={bestJobForEdu}
+          bestJobForMajor={bestJobForMajor}
         />
       )}
     </div>

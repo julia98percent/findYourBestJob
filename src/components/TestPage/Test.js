@@ -13,13 +13,13 @@ function Test({ answers, curPage, setCurPage, questionList }) {
         >
           이전
         </button>
-        {/* 수정해야 할거같은게...뒤로 가면 radio 선택이 안돼 */}
+        {/* TODO 수정해야 할거같은게...뒤로 가면 radio 선택이 안돼 */}
         {curPage == 25 ? (
           <WatchResultBtn />
         ) : (
           <button
             disabled={
-              Object.keys(answers).length == curPage ||
+              Object.keys(answers).length == curPage &&
               Object.keys(answers).length % 5
             }
             style={curPage == 25 ? { visibility: "hidden" } : { color: "blue" }}
