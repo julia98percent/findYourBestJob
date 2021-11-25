@@ -1,27 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "charts.css/dist/charts.min.css";
-function ResultChart({
-  name,
-  gender,
-  date,
-  resultScore,
-  firstValue,
-  secondValue,
-  bestJobForEdu,
-  bestJobForMajor,
-}) {
-  console.log(resultScore);
-  const edu = ["", "중졸이하", "고졸", "전문대졸", "대졸", "대학원졸"];
-  const major = [
-    "계열무관",
-    "인문",
-    "사회",
-    "교육",
-    "공학",
-    "자연",
-    "의학",
-    "예체능",
-  ];
+import { edu, major, koreanValue } from "../constants";
+
+function ChartPage({ match }) {
+  const [username, setUsername] = useState("");
+  const [userGender, setUserGender] = useState(0);
+  const [userDate, setUserDate] = useState("");
+  const [resultScore, setResultScore] = useState([]);
+  const [sortedResultScore, setSortedResultScore] = useState([]);
+  const [bestJobForEdu, setBestJobForEdu] = useState([]);
+  const [bestJobForMajor, setBestJobForMajor] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+  const [firstValue, setFirstValue] = useState("");
+  const [secondValue, setSecondValue] = useState("");
+  useEffect(() => {
+    const jsonURL =
+      "https://www.career.go.kr/inspct/api/psycho/report?seq=" +
+      match.params.seq;
+
+    const call = async () => {
+      const response2 = await axios.get(jsonURL).then((res) => res.data);
+      setUsername(response2.user.name);
+      setUserGender(response2.user.grade);
+      setUserDate(response2.result.endDtm.substring(0, 10));
+      const wonScore = response2.result.wonScore.split(/\s|=/);
+      let beforeSort = [];
+      let cnt = 0;
+      for (let i = 0; i < wonScore.length; i++) {
+        if (wonScore && i % 2) {
+          beforeSort.push([wonScore[i - 1], koreanValue[cnt], wonScore[i]]);
+          cnt++;
+        }
+      }
+      let afterSort = [...beforeSort];
+      afterSort.sort((a, b) => {
+        return b[2] - a[2];
+      });
+
+      setResultScore(beforeSort);
+      setSortedResultScore(afterSort);
+      setFirstValue(afterSort[0][1]);
+      setSecondValue(afterSort[1][1]);
+
+      // 평균 학력별 직업 정보
+      const response3 = await axios
+        .get(
+          `https://inspct.career.go.kr/inspct/api/psycho/value/jobs?no1=${afterSort[0][0]}&no2=${afterSort[1][0]}`
+        )
+        .then((res) => res.data);
+      // 평균 전공별 직업 정보
+      const response4 = await axios
+        .get(
+          `https://inspct.career.go.kr/inspct/api/psycho/value/majors?no1=${afterSort[0][0]}&no2=${afterSort[1][0]}`
+        )
+        .then((res) => res.data);
+
+      setBestJobForEdu(response3);
+      setBestJobForMajor(response4);
+
+      console.log(bestJobForEdu);
+      console.log(bestJobForMajor);
+    };
+    call();
+    console.log(sortedResultScore);
+  }, []);
+  // if (sortedResultScore != undefined && bestJobForEdu) {
+  //   console.log(resultScore);
+  //   console.log(bestJobForEdu);
+  //   setIsLoading(false);
+  // }
 
   return (
     <div>
@@ -45,12 +93,13 @@ function ResultChart({
           </thead>
           <tbody>
             <tr>
-              <td>{name}</td>
-              <td>{gender == 100323 ? "남" : "여"}</td>
-              <td>{date}</td>
+              <td>{username}</td>
+              <td>{userGender == 100323 ? "남" : "여"}</td>
+              <td>{userDate}</td>
             </tr>
           </tbody>
         </table>
+
         <h3>1. 직업가치관 결과</h3>
         <div>
           <table
@@ -74,12 +123,12 @@ function ResultChart({
               })}
             </tbody>
           </table>
+
           <div>
-            <h3>2. {name}님의 가치관과 관련이 높은 직업</h3>
+            <h3>2. {username}님의 가치관과 관련이 높은 직업</h3>
             <span>
-              {name}님이 중요하게 생각하는 {firstValue[1]}와(과)
-              {secondValue[1]}
-              을(를) 만족시킬 수 있는 직업은 다음과 같습니다.
+              {username}님이 중요하게 생각하는 {firstValue}와(과)
+              {secondValue}을(를) 만족시킬 수 있는 직업은 다음과 같습니다.
             </span>
             <div>
               <h4>종사자 평균 학력별</h4>
@@ -173,4 +222,4 @@ function ResultChart({
   );
 }
 
-export default ResultChart;
+export default ChartPage;

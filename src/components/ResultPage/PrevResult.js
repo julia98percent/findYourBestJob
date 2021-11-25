@@ -1,7 +1,7 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
-function PrevResult({ name, setIsPrev, firstValue, secondValue }) {
+function PrevResult({ name, setIsPrev, firstValue, secondValue, sequence }) {
   console.log(name + "<< name");
   return (
     <div className="result">
@@ -18,9 +18,10 @@ function PrevResult({ name, setIsPrev, firstValue, secondValue }) {
             {name}님은 {firstValue[1]},{secondValue[1]} 성향이 강하시네요!
             <br />
             다음 페이지에서 {name}님만을 위한 결과분석 보고서를 보여드릴게요 ~ !
-            {/* <div>{bestJob}</div> */}
           </div>
-          <button onClick={() => setIsPrev(false)}>자세한 결과보기</button>
+          <Link to={`/result/${sequence}`}>
+            <button>자세한 결과보기</button>
+          </Link>
         </div>
       ) : (
         <Redirect to="404" />

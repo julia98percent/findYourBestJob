@@ -47,8 +47,16 @@ function TestPage({ answers, setAnswers }) {
 
   return (
     <div className="test">
-      <h2>{curPage * 4}</h2>
-      <progress class="progress" value={curPage * 4} max="100"></progress>
+      <h2>
+        {Math.round((Object.keys(answers).length / questions.length) * 100)}
+      </h2>
+      <progress
+        class="progress"
+        value={Math.round(
+          (Object.keys(answers).length / questions.length) * 100
+        )}
+        max="100"
+      ></progress>
       {isExample ? (
         <ExampleTest
           setIsExample={setIsExample}

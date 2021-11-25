@@ -4,6 +4,7 @@ import TestPage from "./routes/TestPage";
 import PrevPage from "./routes/PrevPage";
 import ResultPage from "./routes/ResultPage";
 import PageNotFound from "./routes/PageNotFound";
+import ChartPage from "./routes/ChartPage";
 import "bulma/css/bulma.min.css";
 
 function App() {
@@ -15,19 +16,20 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Switch>
+          <Route path="/404" render={() => <PageNotFound />} />
           <Route
             path="/test"
             render={() => (
               <TestPage answers={answers} setAnswers={setAnswers} />
             )}
           />
+          <Route path="/result/:seq" component={ChartPage} />
           <Route
-            path="/result:seq"
+            path="/result"
             render={() => (
               <ResultPage name={name} gender={gender} answers={answers} />
             )}
           />
-          <Route path="/404" render={() => <PageNotFound />} />
           <Route
             path="/"
             render={() => (
@@ -39,6 +41,7 @@ function App() {
               />
             )}
           />
+          <Route render={() => <PageNotFound />} />
         </Switch>
       </BrowserRouter>
     </div>
