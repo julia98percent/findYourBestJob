@@ -5,7 +5,7 @@ function QuestionBox({ num, question, answers, setAnswers }) {
     newAnswers[e.target.name] = e.target.value;
     setAnswers(newAnswers);
   };
-  console.log(answers);
+
   return (
     <div className="main">
       <div style={{ backgroundColor: "pink" }}>

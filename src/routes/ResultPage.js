@@ -6,7 +6,6 @@ import ResultChart from "../components/ResultPage/ResultChart";
 
 function ResultPage({ name, gender, answers }) {
   const [isPrev, setIsPrev] = useState(true);
-  const [resultUrl, setResultUrl] = useState(undefined);
   const [date, setDate] = useState(null);
   const [resultScore, setResultScore] = useState([]);
   const [firstValue, setFirstValue] = useState(-1);

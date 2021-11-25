@@ -40,7 +40,7 @@ function PrevInput({ name, gender, setName, setGender, checkName }) {
         여자
       </label>
 
-      <div>{gender ? "" : "성별을 선택해주세요!"}</div>
+      <div>{checkName(name) && gender ? "" : "성별을 선택해주세요!"}</div>
     </div>
   );
 }

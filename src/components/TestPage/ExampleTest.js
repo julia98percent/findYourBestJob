@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import QuestionBox from "./QuestionBox";
 
 function ExampleTest({ setIsExample, question }) {
+  const [exampleValue, setExampleValue] = useState(0);
   return (
     <div className="test">
       <h2>검사예시</h2>
@@ -12,9 +13,25 @@ function ExampleTest({ setIsExample, question }) {
       </div>
       <div style={{ backgroundColor: "pink" }}>
         <p>1. 두개 가치 중에 자신에게 더 중요한 가치를 선택하세요.</p>
-        {/* TODO 여기 버튼 고쳐주ㅓ */}
-        <button value={"test1"}>{question[0]}</button>
-        <button value={"test2"}>{question[1]}</button>
+        <label class="radio">
+          <input
+            type="radio"
+            name="ex"
+            value={998}
+            onClick={(e) => setExampleValue(e.target.value)}
+          />
+          {question[0]}
+        </label>
+
+        <label class="radio">
+          <input
+            type="radio"
+            name="ex"
+            value={999}
+            onClick={(e) => setExampleValue(e.target.value)}
+          />
+          {question[1]}
+        </label>
 
         <div>
           <span>
@@ -26,7 +43,9 @@ function ExampleTest({ setIsExample, question }) {
           </span>
         </div>
       </div>
-      <button onClick={() => setIsExample(false)}>검사시작</button>
+      <button disabled={!exampleValue} onClick={() => setIsExample(false)}>
+        검사시작
+      </button>
     </div>
   );
 }

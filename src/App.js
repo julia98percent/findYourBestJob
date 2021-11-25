@@ -3,6 +3,7 @@ import { Switch, BrowserRouter, Route } from "react-router-dom";
 import TestPage from "./routes/TestPage";
 import PrevPage from "./routes/PrevPage";
 import ResultPage from "./routes/ResultPage";
+import PageNotFound from "./routes/PageNotFound";
 import "bulma/css/bulma.min.css";
 
 function App() {
@@ -21,11 +22,12 @@ function App() {
             )}
           />
           <Route
-            path="/result"
+            path="/result:seq"
             render={() => (
               <ResultPage name={name} gender={gender} answers={answers} />
             )}
           />
+          <Route path="/404" render={() => <PageNotFound />} />
           <Route
             path="/"
             render={() => (
