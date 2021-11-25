@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "charts.css/dist/charts.min.css";
 import { edu, major, koreanValue } from "../constants";
@@ -14,6 +15,17 @@ function ChartPage({ match }) {
   // const [isLoading, setIsLoading] = useState(false);
   const [firstValue, setFirstValue] = useState("");
   const [secondValue, setSecondValue] = useState("");
+
+  const copyUrlRef = useRef();
+  const handleCopyUrl = (e) => {
+    if (!document.queryCommandSupported("copy")) {
+      return alert("복사 기능이 지원되지 않는 브라우저입니다.");
+    }
+    copyUrlRef.current.select();
+    document.execCommand("copy");
+    e.target.focus();
+  };
+
   useEffect(() => {
     const jsonURL =
       "https://www.career.go.kr/inspct/api/psycho/report?seq=" +
@@ -217,6 +229,15 @@ function ChartPage({ match }) {
             </div>
           </div>
         </div>
+      </div>
+      <Link to="/">
+        <button>다시 검사하기</button>
+      </Link>
+      <div>
+        <p>친구와 공유 ㄱㄱ</p>
+        <button onClick={handleCopyUrl}>공유하기</button>
+        {/* <form> */}
+        <textarea ref={copyUrlRef} value={window.location.href} />
       </div>
     </div>
   );
