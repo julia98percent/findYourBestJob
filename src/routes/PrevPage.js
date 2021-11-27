@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PrevInput from "../components/PrevPage/PrevInput";
-import "bulma/css/bulma.min.css";
-
+import { Button, CenterContainer } from "../styles/theme";
 function PrevPage({ name, setName, gender, setGender }) {
   function checkName(str) {
     const regExp = /^[a-zA-Zㄱ-힣|s]*$/;
@@ -10,7 +9,7 @@ function PrevPage({ name, setName, gender, setGender }) {
   }
 
   return (
-    <div className="prev">
+    <CenterContainer>
       <PrevInput
         name={name}
         setName={setName}
@@ -18,16 +17,15 @@ function PrevPage({ name, setName, gender, setGender }) {
         setGender={setGender}
         checkName={checkName}
       />
-      <Link to="/test">
-        <button
-          class="button is-black"
-          colorScheme="blue"
-          disabled={checkName(name) && gender ? false : true}
-        >
-          검사시작
-        </button>
-      </Link>
-    </div>
+
+      <div>
+        <Link to="/test">
+          <Button disabled={name && checkName(name) && gender ? false : true}>
+            검사시작
+          </Button>
+        </Link>
+      </div>
+    </CenterContainer>
   );
 }
 

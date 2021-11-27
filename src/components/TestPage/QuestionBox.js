@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import {
+  QuestionContainer,
+  Label,
+  QA,
+  Description,
+  QuestionCover,
+} from "../../styles/theme";
 function QuestionBox({ num, question, answers, setAnswers }) {
   const handleChange = (e) => {
     let newAnswers = { ...answers };
@@ -7,11 +14,13 @@ function QuestionBox({ num, question, answers, setAnswers }) {
   };
 
   return (
-    <div className="main">
-      <div style={{ backgroundColor: "pink" }}>
-        <p>{num}. 두개 가치 중에 자신에게 더 중요한 가치를 선택하세요.</p>
+    <QuestionContainer>
+      <QA>
+        <QuestionCover>
+          {num}. 두개 가치 중에 자신에게 더 중요한 가치를 선택하세요.
+        </QuestionCover>
 
-        <label class="radio">
+        <Label>
           <input
             type="radio"
             name={num}
@@ -20,9 +29,9 @@ function QuestionBox({ num, question, answers, setAnswers }) {
             checked={answers[num] && answers[num] == num * 2 - 1}
           />
           {question[0]}
-        </label>
+        </Label>
 
-        <label class="radio">
+        <Label>
           <input
             type="radio"
             name={num}
@@ -31,19 +40,18 @@ function QuestionBox({ num, question, answers, setAnswers }) {
             checked={answers[num] && answers[num] == num * 2}
           />
           {question[1]}
-        </label>
-
-        <div>
-          <span>
-            {question[0]}:{question[2]}
-          </span>
-          <br />
-          <span>
-            {question[1]}:{question[3]}
-          </span>
-        </div>
-      </div>
-    </div>
+        </Label>
+      </QA>
+      <Description>
+        <span>
+          {question[0]}:{question[2]}
+        </span>
+        <br />
+        <span>
+          {question[1]}:{question[3]}
+        </span>
+      </Description>
+    </QuestionContainer>
   );
 }
 

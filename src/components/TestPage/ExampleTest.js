@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import QuestionBox from "./QuestionBox";
-
+import { Label } from "../../styles/theme";
 function ExampleTest({ setIsExample, question }) {
   const [exampleValue, setExampleValue] = useState(0);
   return (
     <div className="test">
-      <h2>검사예시</h2>
       <div>
         직업과 관련된 두 개의 가치 중에서 자기에게 더 중요한 가치에 표시하세요.
         <br />
@@ -13,7 +11,7 @@ function ExampleTest({ setIsExample, question }) {
       </div>
       <div style={{ backgroundColor: "pink" }}>
         <p>1. 두개 가치 중에 자신에게 더 중요한 가치를 선택하세요.</p>
-        <label class="radio">
+        <Label>
           <input
             type="radio"
             name="ex"
@@ -21,9 +19,9 @@ function ExampleTest({ setIsExample, question }) {
             onClick={(e) => setExampleValue(e.target.value)}
           />
           {question[0]}
-        </label>
+        </Label>
 
-        <label class="radio">
+        <Label>
           <input
             type="radio"
             name="ex"
@@ -31,7 +29,7 @@ function ExampleTest({ setIsExample, question }) {
             onClick={(e) => setExampleValue(e.target.value)}
           />
           {question[1]}
-        </label>
+        </Label>
 
         <div>
           <span>

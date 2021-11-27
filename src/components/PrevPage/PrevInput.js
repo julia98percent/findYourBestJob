@@ -1,46 +1,60 @@
 import React from "react";
+import {
+  InputName,
+  WarningMsg,
+  InputCover,
+  Label,
+  H2,
+} from "../../styles/theme";
 
 function PrevInput({ name, gender, setName, setGender, checkName }) {
   return (
     <div>
-      <h2 class="title is-2">직업가치관검사</h2>
-      <p>
-        이름: <input onChange={(e) => setName(e.target.value)} />
-      </p>
-
+      <H2>✏️직업가치관검사🐰</H2>
       <div>
-        {name ? (
-          checkName(name) ? (
-            <br />
-          ) : (
-            "숫자나 특수문자는 들어갈 수 없어요!8ㅅ8"
-          )
-        ) : (
-          "이름을 입력해주세요!"
-        )}
+        <InputCover>
+          <InputName>이름</InputName>
+          <input onChange={(e) => setName(e.target.value)} />
+
+          <WarningMsg>
+            {name ? (
+              checkName(name) ? (
+                <br />
+              ) : (
+                "숫자나 특수문자는 들어갈 수 없어요!8ㅅ8"
+              )
+            ) : (
+              "이름을 입력해주세요!"
+            )}
+          </WarningMsg>
+        </InputCover>
+        <InputCover>
+          <InputName>성별</InputName>
+          <Label>
+            <input
+              type="radio"
+              name="gender"
+              value="100323"
+              onChange={() => setGender(100323)}
+            />
+            남자
+          </Label>
+
+          <Label>
+            <input
+              type="radio"
+              name="gender"
+              value="100324"
+              onChange={() => setGender(100324)}
+            />
+            여자
+          </Label>
+
+          <WarningMsg>
+            {checkName(name) && gender ? "" : "성별을 선택해주세요!"}
+          </WarningMsg>
+        </InputCover>
       </div>
-
-      <label class="radio">
-        <input
-          type="radio"
-          name="gender"
-          value="100323"
-          onChange={() => setGender(100323)}
-        />
-        남자
-      </label>
-
-      <label class="radio">
-        <input
-          type="radio"
-          name="gender"
-          value="100324"
-          onChange={() => setGender(100324)}
-        />
-        여자
-      </label>
-
-      <div>{checkName(name) && gender ? "" : "성별을 선택해주세요!"}</div>
     </div>
   );
 }

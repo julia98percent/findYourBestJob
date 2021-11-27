@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import PrevResult from "../components/ResultPage/PrevResult";
+import PrevResult from "../components/ResultPage/Result";
 import { koreanValue } from "../constants";
+
 function ResultPage({ name, gender, answers }) {
   const [isPrev, setIsPrev] = useState(true);
   const [date, setDate] = useState(null);
@@ -66,7 +67,7 @@ function ResultPage({ name, gender, answers }) {
     call();
   }, []);
   return (
-    <div className="result">
+    <>
       {name ? (
         <PrevResult
           name={name}
@@ -79,7 +80,7 @@ function ResultPage({ name, gender, answers }) {
       ) : (
         <Redirect to="/404" />
       )}
-    </div>
+    </>
   );
 }
 

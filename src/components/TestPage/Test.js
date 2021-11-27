@@ -1,33 +1,31 @@
-import React, { useState } from "react";
-import WatchResultBtn from "./WatchResultBtn";
+import React from "react";
+import { Link } from "react-router-dom";
+import { CenterContainer, PrevButton, NextButton } from "../../styles/theme";
 
 function Test({ answers, curPage, setCurPage, questionList }) {
-  console.log(Object.keys(answers).length + "   " + curPage);
   return (
-    <div className="test">
-      <h2>검사진행</h2>
+    <CenterContainer>
       <div>
         <div>{questionList}</div>
-        <button
-          style={curPage == 0 ? { visibility: "hidden" } : { color: "red" }}
-          onClick={() => setCurPage(curPage - 5)}
-        >
+
+        <PrevButton curPage={curPage} onClick={() => setCurPage(curPage - 5)}>
           이전
-        </button>
+        </PrevButton>
 
         {curPage == 25 ? (
-          <WatchResultBtn />
+          <Link to="/result">
+            <NextButton type="submit">제출</NextButton>
+          </Link>
         ) : (
-          <button
+          <NextButton
             disabled={Object.keys(answers).length < curPage + 5}
-            style={curPage == 25 ? { visibility: "hidden" } : { color: "blue" }}
             onClick={() => setCurPage(curPage + 5)}
           >
             다음
-          </button>
+          </NextButton>
         )}
       </div>
-    </div>
+    </CenterContainer>
   );
 }
 
