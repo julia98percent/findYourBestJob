@@ -5,7 +5,13 @@ import ExampleTest from "../components/TestPage/ExampleTest";
 import Test from "../components/TestPage/Test";
 import axios from "axios";
 
-import { ClearContainer, LeftH2, RightH2 } from "../styles/theme";
+import {
+  ClearContainer,
+  LeftH2,
+  RightH2,
+  CenterContainer,
+  ProgressCover,
+} from "../styles/theme";
 function TestPage({ answers, setAnswers }) {
   const [curPage, setCurPage] = useState(0); // 현재 페이지 번호 및 진행률
 
@@ -48,14 +54,14 @@ function TestPage({ answers, setAnswers }) {
   }
 
   return (
-    <div className="test">
-      <div>
+    <CenterContainer>
+      <ProgressCover>
         <LeftH2>
           {Math.round((Object.keys(answers).length / questions.length) * 100) +
             "%"}
         </LeftH2>
         <RightH2>{isExample ? "검사예시" : "검사진행"}</RightH2>
-      </div>
+      </ProgressCover>
       <ClearContainer>
         <progress
           className="progress is-link is-normal"
@@ -88,7 +94,7 @@ function TestPage({ answers, setAnswers }) {
           handleChange={handleChange}
         />
       )}
-    </div>
+    </CenterContainer>
   );
 }
 export default TestPage;

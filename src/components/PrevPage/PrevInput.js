@@ -5,12 +5,18 @@ import {
   InputCover,
   Label,
   H2,
+  PrevDescription,
 } from "../../styles/theme";
 
 function PrevInput({ name, gender, setName, setGender, checkName }) {
   return (
     <div>
       <H2>✏️직업가치관검사🐰</H2>
+      <PrevDescription>
+        이 검사에서는 직업과 관련된 다양한 욕구 및 가치들에 대해 여러분이
+        상대적으로 무엇을 얼마나 더 중요하게 여기는가를 살펴보고, 그 가치가
+        충족될 가능성이 높은 직업을 탐색할 수 있도록 도움을 줄 수 있어요!
+      </PrevDescription>
       <div>
         <InputCover>
           <InputName>이름</InputName>
@@ -19,12 +25,12 @@ function PrevInput({ name, gender, setName, setGender, checkName }) {
           <WarningMsg>
             {name ? (
               checkName(name) ? (
-                <br />
+                <></>
               ) : (
                 "숫자나 특수문자는 들어갈 수 없어요!8ㅅ8"
               )
             ) : (
-              "이름을 입력해주세요!"
+              "이름을 입력해주세요"
             )}
           </WarningMsg>
         </InputCover>
@@ -51,7 +57,7 @@ function PrevInput({ name, gender, setName, setGender, checkName }) {
           </Label>
 
           <WarningMsg>
-            {checkName(name) && gender ? "" : "성별을 선택해주세요!"}
+            {checkName(name) && gender ? "" : "성별을 선택해주세요"}
           </WarningMsg>
         </InputCover>
       </div>

@@ -12,6 +12,9 @@ import {
   ShareButton,
   CopyTextArea,
   BoldMsg,
+  MarginContainer,
+  RightDiv,
+  ClearContainer,
 } from "../styles/theme";
 function ChartPage({ match }) {
   const [username, setUsername] = useState("");
@@ -128,7 +131,6 @@ function ChartPage({ match }) {
             }}
             className="charts-css column show-10-secondary-axes  show-primary-axis show-data-axes data-spacing-10  show-labels"
           >
-            <caption> {/*TODO 수정해야대요~~~~~~!!!!*/} </caption>
             <tbody>
               {resultScore.map((item) => {
                 return (
@@ -149,53 +151,53 @@ function ChartPage({ match }) {
             </span>
             <div>
               <BoldMsg>종사자 평균 학력별</BoldMsg>
-              <div className="table-parent" style={{ "overflow-x": "auto" }}>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <td>분야</td>
-                      <td>직업명</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {/* api에서 가져온 추천직업의 item을 첫번째부터 순차적으로
+              <RightDiv>직업명을 클릭하면 자세한 설명을 볼 수 있어요</RightDiv>
+              <ClearContainer />
+              <table class="table">
+                <thead>
+                  <tr>
+                    <td>분야</td>
+                    <td>직업명</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* api에서 가져온 추천직업의 item을 첫번째부터 순차적으로
                   사용하는게 아닌 거기서 일단 분류하고 필요한 정보를 빼서
                   쓰려고 함 */}
-                    {bestJobForEdu.map((item, index) => {
-                      // console.log(index); // 0, 1, 2, 3, 4 ...
-                      const jobByEdu = bestJobForEdu.filter((item2) => {
-                        // map함수의 index를 활용해서 직업 분류(직업명 컬럼에 들어갈 내용들)
-                        return item2[2] === index;
-                      });
-                      return (
-                        <tr
-                          style={
-                            jobByEdu.length == 0 ? { display: "none" } : {}
-                          }
-                        >
-                          <td>{edu[index]}</td>
-                          <td>
-                            {jobByEdu.map((job) => {
-                              const [jobLinkNum, jobName] = job;
-                              return (
-                                <a
-                                  href={`https://www.career.go.kr/cnet/front/base/job/jobView.do?SEQ=${jobLinkNum}`}
-                                  target="_blank"
-                                >
-                                  {jobName + " "}
-                                </a>
-                              );
-                            })}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
+                  {bestJobForEdu.map((item, index) => {
+                    // console.log(index); // 0, 1, 2, 3, 4 ...
+                    const jobByEdu = bestJobForEdu.filter((item2) => {
+                      // map함수의 index를 활용해서 직업 분류(직업명 컬럼에 들어갈 내용들)
+                      return item2[2] === index;
+                    });
+                    return (
+                      <tr
+                        style={jobByEdu.length == 0 ? { display: "none" } : {}}
+                      >
+                        <td>{edu[index]}</td>
+                        <td>
+                          {jobByEdu.map((job) => {
+                            const [jobLinkNum, jobName] = job;
+                            return (
+                              <a
+                                href={`https://www.career.go.kr/cnet/front/base/job/jobView.do?SEQ=${jobLinkNum}`}
+                                target="_blank"
+                              >
+                                {jobName + " "}
+                              </a>
+                            );
+                          })}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
             <div>
               <BoldMsg>종사자 평균 전공별</BoldMsg>
+              <RightDiv>직업명을 클릭하면 자세한 설명을 볼 수 있어요</RightDiv>
+              <ClearContainer />
               <table class="table">
                 <thead>
                   <tr>
@@ -239,17 +241,19 @@ function ChartPage({ match }) {
           </div>
         </div>
       </div>
-      <Link to="/">
-        <Button>다시 검사하기</Button>
-      </Link>
-      <div>
+      <MarginContainer>
+        <Link to="/">
+          <Button>다시 검사하기</Button>
+        </Link>
+      </MarginContainer>
+      <MarginContainer>
         <BoldText>⬇️ 친구와 결과를 공유해보세요 ⬇️</BoldText>
         <ShareButton onClick={handleCopyUrl}>
           링크 복사하기
           <CopyTextArea ref={copyUrlRef} value={window.location.href} />
         </ShareButton>
         {/* <form> */}
-      </div>
+      </MarginContainer>
     </CenterContainer>
   );
 }

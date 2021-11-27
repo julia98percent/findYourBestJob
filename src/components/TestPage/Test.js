@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CenterContainer, PrevButton, NextButton } from "../../styles/theme";
+import { PrevButton, NextButton } from "../../styles/theme";
 
 function Test({ answers, curPage, setCurPage, questionList }) {
   return (
-    <CenterContainer>
+    <>
       <div>
         <div>{questionList}</div>
 
@@ -14,7 +14,12 @@ function Test({ answers, curPage, setCurPage, questionList }) {
 
         {curPage == 25 ? (
           <Link to="/result">
-            <NextButton type="submit">제출</NextButton>
+            <NextButton
+              disabled={Object.keys(answers).length < 28}
+              type="submit"
+            >
+              제출
+            </NextButton>
           </Link>
         ) : (
           <NextButton
@@ -25,7 +30,7 @@ function Test({ answers, curPage, setCurPage, questionList }) {
           </NextButton>
         )}
       </div>
-    </CenterContainer>
+    </>
   );
 }
 

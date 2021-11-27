@@ -1,89 +1,4 @@
 import styled from "styled-components";
-const margins = {
-  sm: ".5rem",
-  base: "1rem",
-  lg: "2rem",
-  xl: "3rem",
-};
-
-const paddings = {
-  sm: ".5rem",
-  base: "1rem",
-  lg: "2rem",
-  xl: "3rem",
-};
-
-const fonts = {
-  family: {
-    base: `'Noto Sans KR', sans-serif`,
-    title: `'Merriweather', serif`,
-  },
-  size: {
-    sm: "1.4rem",
-    base: "1.6rem",
-    lg: "2rem",
-    xl: "2.5rem",
-    title: "6rem",
-  },
-  weight: {
-    light: 100,
-    normal: 400,
-    bold: 700,
-  },
-};
-
-const colors = {
-  red: "#ff4d4d",
-  yellow: "#ffff4d",
-  blue: "#0099ff",
-};
-
-const size = {
-  mobile: "600px",
-  tablet: "900px",
-  laptop: "1200px",
-  desktop: "1800px",
-};
-
-// 미디어 쿼리의 중복 코드를 줄이기위해 정의된 변수
-const device = {
-  mobile: `@media only screen and (max-width: ${size.mobile})`,
-  tablet: `@media only screen and (max-width: ${size.tablet})`,
-  desktopL: `@media only screen and (max-width: ${size.desktop})`,
-};
-
-//테마에 따라 다른 값을 갖는 색상 값
-const lightThemeColors = {
-  ...colors,
-  primary: "#333",
-  secondary: "#fff",
-  tertiary: "#808080",
-};
-
-const darkThemeColors = {
-  ...colors,
-  primary: "#fff",
-  secondary: "#333",
-  tertiary: "#d4d0c4",
-};
-
-// 테마와 관련없이 공통으로 사용되는 변수
-const defalutTheme = {
-  margins,
-  paddings,
-  fonts,
-  device,
-};
-
-export const darkTheme = {
-  ...defalutTheme,
-  colors: darkThemeColors,
-};
-
-export const lightTheme = {
-  ...defalutTheme,
-  colors: lightThemeColors,
-};
 
 export const AppContainer = styled.div`
   display: flex;
@@ -94,10 +9,21 @@ export const AppContainer = styled.div`
   height: 100%;
 `;
 export const CenterContainer = styled.div`
+  @media screen and (max-width: 480px) {
+    width: 80vw;
+    margin-bottom: 0;
+    border: none;
+    margin-top: 5vh;
+  }
   width: 480px;
   text-align: center;
-  // border: solid black 1px;
   padding: 1vw;
+  margin-top: 13vh;
+  margin-bottom: 13vh;
+`;
+
+export const BorderCenterContainer = styled(CenterContainer)`
+  border: solid 2px rgba(81, 79, 156, 0.3);
 `;
 export const Button = styled.button`
   :not(:disabled) {
@@ -128,6 +54,10 @@ export const NextButton = styled(Button)`
   visibility: ${(props) => (props.curPage == 25 ? "hidden" : "inherit")};
   background-color: #514f9c;
 `;
+export const RightDiv = styled.div`
+  float: right;
+  color: #5e20b0;
+`;
 
 export const ResultButton = styled(Button)`
   margin: 1vh 0 1vh 0;
@@ -145,10 +75,11 @@ export const InputName = styled.div`
   text-align: center;
   padding-right: 1vw;
 `;
-
-export const InputCover = styled.div`
-  margin-top: 2vw;
+export const ProgressCover = styled.div`
   margin-bottom: 2vw;
+`;
+export const InputCover = styled(ProgressCover)`
+  margin-top: 2vw;
 `;
 
 export const Msg = styled.p`
@@ -170,6 +101,10 @@ export const Label = styled.label`
 `;
 export const ClearContainer = styled.div`
   clear: both;
+`;
+
+export const MarginContainer = styled.div`
+  margin: 1vw;
 `;
 
 export const BoldText = styled.p`
@@ -207,6 +142,13 @@ export const Description = styled.div`
   color: gray;
 `;
 
+export const PrevDescription = styled(Description)`
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+`;
+
 export const QuestionCover = styled.p`
   margin-bottom: 1vw;
 `;
@@ -223,5 +165,3 @@ export const CopyTextArea = styled.textarea`
   left: 0;
   opacity: 0;
 `;
-
-// export const

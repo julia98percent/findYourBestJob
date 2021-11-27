@@ -6,11 +6,12 @@ import {
   ResultHr,
   BoldText,
   ResultButton,
+  BorderCenterContainer,
 } from "../../styles/theme";
 
 function PrevResult({ name, firstValue, secondValue, sequence }) {
   return (
-    <CenterContainer>
+    <BorderCenterContainer>
       {name ? (
         <>
           <H2>검사가 완료되었습니다.</H2>
@@ -36,7 +37,7 @@ function PrevResult({ name, firstValue, secondValue, sequence }) {
       ) : (
         <Redirect to="404" />
       )}
-    </CenterContainer>
+    </BorderCenterContainer>
   );
 }
 
