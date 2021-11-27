@@ -19,11 +19,6 @@ function App() {
 
   return (
     <AppContainer>
-      <div>
-        <button style={{ width: 100 + "vw" }} className="button">
-          hey~
-        </button>
-      </div>
       <ThemeProvider theme={isLight ? lightTheme : darkTheme}>
         <BrowserRouter>
           <Switch>

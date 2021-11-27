@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "charts.css/dist/charts.min.css";
+import "charts.css/dist/charts.css";
 import { edu, major, koreanValue } from "../constants";
 import {
   CenterContainer,
